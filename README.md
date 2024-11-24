@@ -142,6 +142,3 @@ Esta API é parte do ecossistema AnglePro, integrada com:
 ## 👨‍💻 Autor
 
 [Guilherme Carneiro](https://github.com/guicarneiro11)
-=======
-# AngleProAPI
-API criada utilizando Kotlin para envio dos relatórios via email
