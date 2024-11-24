@@ -59,7 +59,7 @@ Authorization: Bearer {firebase_token}
 - `404`: Paciente não encontrado
 - `500`: Erro interno do servidor
 
-🏗️ Arquitetura
+## 🏗️ Arquitetura
 A API está organizada em uma arquitetura de camadas, seguindo o padrão MVC (Model-View-Controller):
 
 - application: Essa camada contém a configuração principal da aplicação, os plugins (HTTP, Routing, Security, Serialização) e os repositórios. Essa camada segue o padrão arquitetural Repository, responsável por isolar a lógica de acesso a dados.
