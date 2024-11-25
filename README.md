@@ -139,6 +139,10 @@ Esta API é parte do ecossistema AnglePro, integrada com:
 - Firebase Firestore
 - AWS EC2
 
+## 📈 Atualizações pendentes
+
+- [ ] O Pdf gerado não está sendo atualizado com o nome do paciente, retornando um nome vazio no arquivo.
+
 ## 👨‍💻 Autor
 
 [Guilherme Carneiro](https://github.com/guicarneiro11)
