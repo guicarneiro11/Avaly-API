@@ -3,6 +3,7 @@ package com.guicarneirodev.angleapi.config
 import com.google.auth.oauth2.GoogleCredentials
 import com.google.firebase.FirebaseApp
 import com.google.firebase.FirebaseOptions
+import java.io.File
 import java.io.FileInputStream
 
 object FirebaseConfig {
@@ -11,11 +12,17 @@ object FirebaseConfig {
             val credentials = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
                 ?: "firebase-credentials.json"
 
-            println("Loading Firebase credentials from: $credentials")
-            println("Working directory: ${System.getProperty("user.dir")}")
+            println("Loading credentials file: $credentials")
+            val file = File(credentials)
+            println("File exists: ${file.exists()}")
+            println("File readable: ${file.canRead()}")
+            println("File size: ${file.length()}")
+
+            val stream = FileInputStream(credentials)
+            println("Stream available: ${stream.available()}")
 
             val options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(FileInputStream(credentials)))
+                .setCredentials(GoogleCredentials.fromStream(stream))
                 .build()
 
             if (FirebaseApp.getApps().isEmpty()) {
