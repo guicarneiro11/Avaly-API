@@ -1,7 +1,3 @@
-val ktor_version = "2.3.12"
-val kotlin_version: String by project
-val logback_version: String by project
-
 plugins {
     kotlin("jvm") version "1.9.10"
     id("io.ktor.plugin") version "2.3.5"
@@ -9,6 +5,10 @@ plugins {
     id("com.github.johnrengelman.shadow") version "7.1.2"
     application
 }
+
+val ktor_version = "2.3.12"
+val kotlin_version: String by project
+val logback_version: String by project
 
 group = "com.guicarneirodev"
 version = "0.0.1"
@@ -60,15 +60,21 @@ dependencies {
     implementation("io.ktor:ktor-server-default-headers:$ktor_version")
     implementation("io.ktor:ktor-server-partial-content:$ktor_version")
     implementation("io.ktor:ktor-server-netty:$ktor_version")
-    implementation("com.google.firebase:firebase-admin:9.2.0")
     implementation("ch.qos.logback:logback-classic:$logback_version")
-    implementation("com.google.firebase:firebase-admin:9.2.0") { exclude(group = "com.google.guava", module = "guava") }
+    implementation("com.google.firebase:firebase-admin:9.2.0") {
+        exclude(group = "com.google.guava", module = "guava")
+        exclude(group = "com.fasterxml.jackson.core", module = "jackson-core")
+    }
     implementation("com.google.guava:guava:32.1.1-jre")
     implementation("com.google.auth:google-auth-library-oauth2-http:1.19.0")
     implementation("com.itextpdf:itext7-core:8.0.5")
     implementation("org.jetbrains.kotlinx:kotlinx-serialization-json:1.5.1")
     implementation ("io.grpc:grpc-netty-shaded:1.51.0")
     implementation ("io.netty:netty-tcnative-boringssl-static:2.0.50.Final")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.15.3")
+    implementation("com.fasterxml.jackson.core:jackson-databind:2.15.3")
+    implementation("com.fasterxml.jackson.core:jackson-annotations:2.15.3")
+    implementation("com.fasterxml.jackson.module:jackson-module-kotlin:2.15.3")
 
     testImplementation("io.ktor:ktor-server-test-host:$ktor_version")
     testImplementation("org.jetbrains.kotlin:kotlin-test-junit:$kotlin_version")

@@ -20,7 +20,6 @@ import io.ktor.server.engine.*
 import io.ktor.server.netty.*
 import io.ktor.server.response.*
 import io.ktor.server.routing.*
-import kotlin.system.exitProcess
 
 fun main() {
     try {
@@ -46,10 +45,8 @@ fun main() {
 }
 
 fun Application.module() {
-    // Configurações
     FirebaseConfig.initialize()
 
-    // Plugins
     install(Authentication) {
         bearer("firebase-auth") {
             authenticate { tokenCredential ->
@@ -68,7 +65,6 @@ fun Application.module() {
     configureHTTP()
     configureExceptionHandling()
 
-    // Dependency Injection
     val firestore = FirestoreClient.getFirestore()
     val measurementRepository = FirebaseMeasurementRepository(firestore)
     val patientRepository = FirebasePatientRepository(firestore, measurementRepository)
@@ -84,7 +80,6 @@ fun Application.module() {
 
     val patientController = PatientController(patientService)
 
-    // Routing
     routing {
         get("/health") {
             call.respond(mapOf("status" to "OK"))
