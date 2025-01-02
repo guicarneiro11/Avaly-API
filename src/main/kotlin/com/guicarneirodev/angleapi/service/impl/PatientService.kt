@@ -77,23 +77,18 @@ class PatientService(
         patientId: String,
         email: String
     ) = withContext(Dispatchers.IO) {
-        logger.info("Generating and sending report - userId: $userId, patientId: $patientId, email: $email")
+        logger.error("Attempting to generate report - userId: $userId, patientId: $patientId")
 
         try {
             val patient = getPatient(userId, patientId)
+            logger.info("Patient found: ${patient.name}")
+
             val pdfContent = pdfGenerator.generatePdf(patient)
 
             emailService.sendEmail(
                 to = email,
                 subject = "Relatório do Paciente ${patient.name}",
-                content = """
-                   Olá,
-                   
-                   Segue em anexo o relatório do paciente ${patient.name}.
-                   
-                   Atenciosamente,
-                   Equipe AnglePro
-               """.trimIndent(),
+                content = "Relatório gerado",
                 attachment = EmailAttachment(
                     name = "relatorio_${patient.name.lowercase().replace(" ", "_")}.pdf",
                     content = pdfContent,
@@ -103,7 +98,7 @@ class PatientService(
 
             logger.info("Report generated and sent successfully")
         } catch (e: Exception) {
-            logger.error("Error generating/sending report", e)
+            logger.error("Error in generateAndSendReport", e)
             throw BusinessException("Failed to generate or send report: ${e.message}")
         }
     }

@@ -10,19 +10,15 @@ object FirebaseConfig {
     fun initialize() {
         try {
             val credentials = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-                ?: "firebase-credentials.json"
+                ?: "anglepro-48192-firebase-adminsdk-aq2y7-805cfa99f3.json"
 
-            println("Loading credentials file: $credentials")
-            val file = File(credentials)
-            println("File exists: ${file.exists()}")
-            println("File readable: ${file.canRead()}")
-            println("File size: ${file.length()}")
-
-            val stream = FileInputStream(credentials)
-            println("Stream available: ${stream.available()}")
+            println("Using credentials file: $credentials")
+            println("Absolute path: ${File(credentials).absolutePath}")
+            println("Working directory: ${System.getProperty("user.dir")}")
+            println("File exists: ${File(credentials).exists()}")
 
             val options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(stream))
+                .setCredentials(GoogleCredentials.fromStream(FileInputStream(credentials)))
                 .build()
 
             if (FirebaseApp.getApps().isEmpty()) {
