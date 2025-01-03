@@ -9,26 +9,27 @@ import java.io.FileInputStream
 object FirebaseConfig {
     fun initialize() {
         try {
-            val credentials = System.getenv("GOOGLE_APPLICATION_CREDENTIALS")
-                ?: "anglepro-48192-firebase-adminsdk-aq2y7-805cfa99f3.json"
+            val credentialsPath = "firebase-credentials.json"
+            val file = File(credentialsPath)
 
-            println("Using credentials file: $credentials")
-            println("Absolute path: ${File(credentials).absolutePath}")
-            println("Working directory: ${System.getProperty("user.dir")}")
-            println("File exists: ${File(credentials).exists()}")
+            require(file.exists()) { "Credentials file not found at: ${file.absolutePath}" }
+
+            val credentials = GoogleCredentials
+                .fromStream(FileInputStream(file))
+                .createScoped(listOf(
+                    "https://www.googleapis.com/auth/cloud-platform",
+                    "https://www.googleapis.com/auth/datastore"
+                ))
 
             val options = FirebaseOptions.builder()
-                .setCredentials(GoogleCredentials.fromStream(FileInputStream(credentials)))
+                .setCredentials(credentials)
+                .setProjectId("anglepro-48192")
                 .build()
 
-            if (FirebaseApp.getApps().isEmpty()) {
-                FirebaseApp.initializeApp(options)
-                println("Firebase initialized successfully")
-            }
+            FirebaseApp.initializeApp(options)
+            println("Firebase initialized with project: anglepro-48192")
         } catch (e: Exception) {
-            println("Error initializing Firebase: ${e.message}")
-            e.printStackTrace()
-            throw e
+            throw RuntimeException("Firebase initialization failed: ${e.message}", e)
         }
     }
 }
