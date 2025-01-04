@@ -1,4 +1,4 @@
-# 📊 AnglePro API
+# 📊 Avaly API
 
 API desenvolvida em Kotlin com Ktor para geração e envio de relatórios em PDF para aplicativo de avaliação fisioterapêutica.
 
@@ -138,10 +138,6 @@ Esta API é parte do ecossistema AnglePro, integrada com:
 - Firebase Authentication
 - Firebase Firestore
 - AWS EC2
-
-## 📈 Atualizações pendentes
-
-- [ ] O Pdf gerado não está sendo atualizado com o nome do paciente, retornando um nome vazio no arquivo.
 
 ## 👨‍💻 Autor
 
