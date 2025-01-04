@@ -59,13 +59,11 @@ class FirebasePatientRepository(
                 val data = patientDoc.data ?: return@withContext null
                 val measurements = measurementRepository.getMeasurements(userId, patientId)
 
-                logger.info("Patient data: $data") // Adicione log
-
                 Patient(
                     id = patientId,
                     userId = userId,
                     name = data["patientName"] as? String ?: "",
-                    evaluationDate = (data["evaluationDate"] as? Timestamp)?.toLocalDateTime()
+                    evaluationDate = (data["created"] as? Timestamp)?.toLocalDateTime()
                         ?: LocalDateTime.now(),
                     measurements = measurements
                 )

@@ -21,9 +21,9 @@ class EmailService(private val config: EmailConfig) : IEmailService {
             val email = MultiPartEmail().apply {
                 hostName = config.host
                 setSmtpPort(config.port)
-                isStartTLSEnabled = true
+                isStartTLSEnabled = config.isStartTLSEnabled
                 setAuthentication(config.username, config.password)
-                setFrom(config.fromEmail)
+                setFrom(config.fromEmail, "Avaly")
                 addTo(to)
                 setSubject(subject)
                 setMsg(content)
