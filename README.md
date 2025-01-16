@@ -119,7 +119,7 @@ docker run -p 8080:8080 anglepro-api
 
 ## 📦 Dependências Principais
 
-- Ktor: Framework web em Kotlin
+- Ktor: Framework em Kotlin
 - Firebase Admin SDK: Integração com Firebase
 - iText: Geração de PDFs
 - Apache Commons Email: Envio de e-mails
